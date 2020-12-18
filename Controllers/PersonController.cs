@@ -12,8 +12,8 @@ namespace OpenBook.Controllers
     public class PersonController : ControllerBase
     {
         private List<Person> people = new List<Person> {
-            new Person { FirstName = "Peter", LastName = "Jones", Email = "peter@gmail.com", IsTeacher = false},
-            new Person { FirstName = "Barbara", LastName = "Miles", Email = "bmiles@gmail.com", IsTeacher = true},
+            new Person(firstName: "Peter", lastName: "Jones", email: "peter@gmail.com"),
+            new Person(firstName: "Barbara", lastName: "Miles", email: "bmiles@gmail.com"),
         };
 
         [HttpGet]
@@ -25,7 +25,16 @@ namespace OpenBook.Controllers
         [HttpGet("{id}")]
         public ActionResult<Person> Get(int id)
         {
-            return NotFound("Method not yet implemented!");
+            Person person = people.FirstOrDefault(p => p.Id == id);
+            
+            Console.WriteLine(Request);
+
+            if (person == null) 
+            {
+                return NotFound("No Person with this id exists in the database.");
+            }
+            
+            return Ok(person);
         }
  
         [HttpPost]
