@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OpenBook.Models;
 
 namespace OpenBook.Controllers
@@ -10,59 +12,89 @@ namespace OpenBook.Controllers
     public class PersonController : ControllerBase
     {
         public static string Path { get; } = "api/Person/";
+        private readonly PersonContext _context;
 
-        private List<Person> people = new List<Person> {
-            new Person(firstName: "Peter", lastName: "Jones", email: "peter@gmail.com"),
-            new Person(firstName: "Barbara", lastName: "Miles", email: "bmiles@gmail.com"),
-        };
+        public PersonController(PersonContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Person>> Get()
+        public async Task<ActionResult<IEnumerable<Person>>> GetAllPersons()
         {
-            return people;
+            return await _context.People.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Person> Get(int id)
+        public async Task<ActionResult<Person>> GetPerson(long id)
         {
-            Person person = people.FirstOrDefault(p => p.Id == id);
-            
-            if (person == null) 
+            var person = await _context.People.FindAsync(id);
+
+            if (person == null)
             {
-                return NotFound("No Person with this id exists in the database.");
-            }
-            
-            return Ok(person);
-        }
- 
-        [HttpPost]
-        public ActionResult<IEnumerable<Person>> Post(Person newPerson)
-        {
-            if (newPerson.FirstName == null || newPerson.LastName == null || newPerson.Email == null)
-            {
-                return BadRequest("One or more of the fields was missing or invalid");
+                return NotFound("No Person with this id exists in the database");
             }
 
-            people.Add(newPerson);
-            return Created(Path + $"{newPerson.Id}", newPerson);
+            return Ok(person);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Person>> PostPerson(Person newPerson)
+        {
+            _context.People.Add(newPerson);
+
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetPerson), new { id = newPerson.Id }, newPerson);
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, Person newPerson)
+        public async Task<IActionResult> PutPerson(long id, Person person)
         {
+            if (id != person.Id)
+            {
+                return BadRequest();
+            }
 
-        }
+            _context.Entry(person).State = EntityState.Modified;
 
-        [HttpPatch("{id}")]
-        public void Patch(int id)
-        {
+            try 
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonExists(id))
+                {
+                    return NotFound("No Person with this id exists in the database");
+                }
+                else 
+                {
+                    throw;
+                }
+            }
 
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public void Delete()
+        public async Task<IActionResult> DeletePerson(long id)
         {
-            
+            var person = await _context.People.FindAsync(id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            _context.People.Remove(person);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool PersonExists(long id)
+        {
+            return _context.People.Any(p => p.Id == id);
         }
     }
 }

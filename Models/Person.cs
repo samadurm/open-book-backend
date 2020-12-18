@@ -5,8 +5,7 @@ namespace OpenBook.Models
 {
     public class Person
     {
-        public static long NumPersons = 0; // remove this once the database is set up
-        public long Id { get; }
+        public long Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -17,10 +16,6 @@ namespace OpenBook.Models
 
         public Person(string firstName, string lastName, string email)
         {
-            // get rid of this once the database is set up
-            Id = NumPersons;
-            NumPersons++;
-
             FirstName = firstName;
             LastName = lastName;
             Email = email;
