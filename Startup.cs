@@ -20,6 +20,7 @@ public class Startup
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PersonContext>(opt => opt.UseInMemoryDatabase("Person"));
+            services.AddDbContext<CourseContext>(opt => opt.UseInMemoryDatabase("Course"));
             services.AddControllers();
         }
 

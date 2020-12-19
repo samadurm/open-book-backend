@@ -11,7 +11,6 @@ namespace OpenBook.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        public static string Path { get; } = "api/Person/";
         private readonly PersonContext _context;
 
         public PersonController(PersonContext context)
