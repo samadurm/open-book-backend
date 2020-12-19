@@ -28,6 +28,17 @@ namespace OpenBook
 
 
             services.AddControllers();
+
+            services.AddCors(options => 
+            {
+                options.AddDefaultPolicy(
+                    builder => 
+                    {
+                        builder.WithOrigins("http://localhost:3000");
+                    }
+                );
+            });
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -40,7 +51,7 @@ namespace OpenBook
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {   
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -48,6 +59,8 @@ namespace OpenBook
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();
