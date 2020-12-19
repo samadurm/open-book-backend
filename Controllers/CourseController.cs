@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OpenBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OpenBook.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+    [Route("api/[controller]")]
     public class CourseController : ControllerBase
     {
         private readonly CourseContext _context;
