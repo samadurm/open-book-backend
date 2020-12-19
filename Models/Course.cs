@@ -22,11 +22,11 @@ namespace OpenBook.Models
             "Miscellaneous"
         };
 
-        public Course(string name, string category, long teacherId)
+        public Course(string name, string category)
         {
             Name = name;
             Category = category;
-            TeacherId = teacherId;
+            TeacherId = 0; 
 
             NumStudents = 0;
             Students = new List<long>();
