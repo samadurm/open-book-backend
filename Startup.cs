@@ -22,9 +22,9 @@ namespace OpenBook
         {
             services.AddDbContext<PersonContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("PersonConnection")));
-                
-            // services.AddDbContext<CourseContext>(options => 
-            //     options.UseSqlServer(Configuration.GetConnectionString("Course")));
+    
+            services.AddDbContext<CourseContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("CourseConnection")));
 
 
             services.AddControllers();

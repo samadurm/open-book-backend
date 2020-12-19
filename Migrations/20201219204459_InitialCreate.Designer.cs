@@ -9,7 +9,7 @@ using OpenBook.Models;
 namespace OpenBook.Migrations
 {
     [DbContext(typeof(PersonContext))]
-    [Migration("20201219054022_InitialCreate")]
+    [Migration("20201219204459_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
