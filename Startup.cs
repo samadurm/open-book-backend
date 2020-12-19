@@ -5,10 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using OpenBook.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace OpenBook
 {
-public class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -22,6 +23,15 @@ public class Startup
             services.AddDbContext<PersonContext>(opt => opt.UseInMemoryDatabase("Person"));
             services.AddDbContext<CourseContext>(opt => opt.UseInMemoryDatabase("Course"));
             services.AddControllers();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://openbook.us.auth0.com/";
+                options.Audience = "https://localhost:5001/api";
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -34,6 +44,7 @@ public class Startup
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
