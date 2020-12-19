@@ -20,8 +20,13 @@ namespace OpenBook
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PersonContext>(opt => opt.UseInMemoryDatabase("Person"));
-            services.AddDbContext<CourseContext>(opt => opt.UseInMemoryDatabase("Course"));
+            services.AddDbContext<PersonContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("PersonConnection")));
+                
+            // services.AddDbContext<CourseContext>(options => 
+            //     options.UseSqlServer(Configuration.GetConnectionString("Course")));
+
+
             services.AddControllers();
             services.AddAuthentication(options =>
             {
