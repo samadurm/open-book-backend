@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace OpenBook.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/[controller]")]
     public class CourseController : ControllerBase
     {
