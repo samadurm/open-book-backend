@@ -7,8 +7,8 @@ using OpenBook.Models;
 
 namespace OpenBook.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
         private readonly PersonContext _context;
