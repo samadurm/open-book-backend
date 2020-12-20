@@ -14,11 +14,13 @@ namespace OpenBook.Controllers
     {
         private readonly CourseContext _context;
         private readonly StudentCoursesContext _studentCoursesContext;
+        private readonly CourseLessonsContext _courseLessonsContext;
 
-        public CourseController(CourseContext context, StudentCoursesContext studentCoursesContext)
+        public CourseController(CourseContext context, StudentCoursesContext studentCoursesContext, CourseLessonsContext courseLessonsContext)
         {
             _context = context;
             _studentCoursesContext = studentCoursesContext;
+            _courseLessonsContext = courseLessonsContext;
         }
 
         [HttpGet]
@@ -106,6 +108,22 @@ namespace OpenBook.Controllers
 
             await _studentCoursesContext.SaveChangesAsync();
             return Ok(newStudentCourses);
+        }
+
+        [HttpPost("{courseId}/lessons/{lessonId}")]
+        public async Task<ActionResult<CourseLessons>> PostCourseLessons(long courseId, long lessonId)
+        {
+            var newCourseLesson = new CourseLessons(courseId, lessonId);
+            _courseLessonsContext.CourseLessons.Add(newCourseLesson);
+
+            await _courseLessonsContext.SaveChangesAsync();
+            return Ok(newCourseLesson);
+        }
+
+        [HttpGet("{id}/lessons")]
+        public async Task<ActionResult<IEnumerable<CourseLessons>>> GetCourseLessons(long id)
+        {
+            return await _courseLessonsContext.CourseLessons.Where(l => l.CourseId == id).ToListAsync();
         }
 
         [HttpDelete("{id}")]
