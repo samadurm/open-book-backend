@@ -38,7 +38,7 @@ namespace OpenBook.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Person>> PostPerson(Person newPerson)
+        public async Task<ActionResult<Person>> PostPerson([FromBody] Person newPerson)
         {
             _context.People.Add(newPerson);
 
@@ -47,7 +47,7 @@ namespace OpenBook.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(long id, Person person)
+        public async Task<IActionResult> PutPerson(long id, [FromBody] Person person)
         {
             if (id != person.Id)
             {
