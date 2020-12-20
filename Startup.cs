@@ -19,26 +19,20 @@ namespace OpenBook
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<PersonContext>(opt => opt.UseInMemoryDatabase("Person"));
-            services.AddDbContext<CourseContext>(opt => opt.UseInMemoryDatabase("Course"));
-            services.AddDbContext<StudentCoursesContext>(opt => opt.UseInMemoryDatabase("StudentCourses"));
-            
-            services.AddControllers();
-
-//             services.AddDbContext<PersonContext>(options => 
-//                 options.UseSqlServer(Configuration.GetConnectionString("PersonConnection")));
+        {            
+            services.AddDbContext<PersonContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("PersonConnection")));
     
-//             services.AddDbContext<CourseContext>(options => 
-//                 options.UseSqlServer(Configuration.GetConnectionString("CourseConnection")));
+            services.AddDbContext<CourseContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("CourseConnection")));
+            
+            services.AddDbContext<LessonContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("LessonConnection")));
 
-//             // services.AddDbContext<LessonContext>(opt => opt.UseInMemoryDatabase("Lesson"));
+            services.AddDbContext<StudentCoursesContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("CourseConnection")));
 
-//             services.AddDbContext<LessonContext>(options => 
-//                 options.UseSqlServer(Configuration.GetConnectionString("LessonConnection")));
-
-//             services.AddControllers();
-
+            services.AddControllers();
 
             services.AddCors(options => 
             {
