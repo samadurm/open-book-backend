@@ -40,8 +40,6 @@ namespace OpenBook.Controllers
         [HttpPost]
         public async Task<ActionResult<Lesson>> PostLesson(Lesson newLesson)
         {
-            newLesson.CourseId = 3; // SET THIS TO THE COURSE'S ID when its created!
-
             _context.Lessons.Add(newLesson);
 
             await _context.SaveChangesAsync();
