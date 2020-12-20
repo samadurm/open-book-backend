@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenBook.Models;
 
-namespace OpenBook.Migrations
+namespace OpenBook.Migrations.Course
 {
-    [DbContext(typeof(PersonContext))]
-    [Migration("20201219204459_InitialCreate")]
+    [DbContext(typeof(CourseContext))]
+    [Migration("20201220184048_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,28 +20,34 @@ namespace OpenBook.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("OpenBook.Models.Person", b =>
+            modelBuilder.Entity("OpenBook.Models.Course", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Email")
+                    b.Property<float>("AverageRating")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsTeacher")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Ratings")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TeacherId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.ToTable("Courses");
                 });
 #pragma warning restore 612, 618
         }

@@ -16,7 +16,7 @@ namespace OpenBook.Migrations.Course
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NumStudents = table.Column<int>(type: "int", nullable: false),
+                    Ratings = table.Column<long>(type: "bigint", nullable: false),
                     AverageRating = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>

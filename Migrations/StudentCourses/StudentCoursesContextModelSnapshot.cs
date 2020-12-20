@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenBook.Models;
 
-namespace OpenBook.Migrations.Lesson
+namespace OpenBook.Migrations.StudentCourses
 {
-    [DbContext(typeof(LessonContext))]
-    partial class LessonContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(StudentCoursesContext))]
+    partial class StudentCoursesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -18,28 +18,25 @@ namespace OpenBook.Migrations.Lesson
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("OpenBook.Models.Lesson", b =>
+            modelBuilder.Entity("OpenBook.Models.StudentCourses", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Filename")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsVideo")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("Number")
+                    b.Property<long>("CourseId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsTeacher")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("StudentCourses");
                 });
 #pragma warning restore 612, 618
         }

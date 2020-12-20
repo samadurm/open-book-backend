@@ -37,8 +37,8 @@ namespace OpenBook.Migrations.Course
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumStudents")
-                        .HasColumnType("int");
+                    b.Property<long>("Ratings")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("TeacherId")
                         .HasColumnType("bigint");

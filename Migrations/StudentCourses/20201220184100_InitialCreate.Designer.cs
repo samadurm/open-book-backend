@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenBook.Models;
 
-namespace OpenBook.Migrations.Lesson
+namespace OpenBook.Migrations.StudentCourses
 {
-    [DbContext(typeof(LessonContext))]
-    [Migration("20201219234804_InitialCreate")]
+    [DbContext(typeof(StudentCoursesContext))]
+    [Migration("20201220184100_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace OpenBook.Migrations.Lesson
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("OpenBook.Models.Lesson", b =>
+            modelBuilder.Entity("OpenBook.Models.StudentCourses", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,18 +30,15 @@ namespace OpenBook.Migrations.Lesson
                     b.Property<long>("CourseId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("Number")
+                    b.Property<bool>("IsTeacher")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("StudentId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("TextContent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("StudentCourses");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,8 +14,8 @@ namespace OpenBook.Migrations.Lesson
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Number = table.Column<long>(type: "bigint", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseId = table.Column<long>(type: "bigint", nullable: false),
-                    TextContent = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Filename = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsVideo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

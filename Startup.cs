@@ -21,16 +21,16 @@ namespace OpenBook
         public void ConfigureServices(IServiceCollection services)
         {            
             services.AddDbContext<PersonContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("PersonConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
     
             services.AddDbContext<CourseContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("CourseConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             
             services.AddDbContext<LessonContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("LessonConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
             services.AddDbContext<StudentCoursesContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("CourseConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
             services.AddControllers();
 
