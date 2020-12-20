@@ -95,7 +95,7 @@ namespace OpenBook.Controllers
         [HttpGet("{id}/students/")]
         public async Task<ActionResult<IEnumerable<StudentCourses>>> GetCourseStudents(long id)
         {
-            return await _studentCoursesContext.StudentCourses.ToListAsync();
+            return await _studentCoursesContext.StudentCourses.Where(s => s.CourseId == id).ToListAsync();
         }
 
         [HttpPost("{courseId}/students/{studentId}")]

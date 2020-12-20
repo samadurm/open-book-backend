@@ -5,14 +5,15 @@ namespace OpenBook.Models
         public long Id { get; set; }
         public uint Number { get; set; }
         public string Title { get; set; }
-        public long CourseId { get; set; }
-        public string TextContent { get; set; }
+        public string Filename { get; set; }
+        public bool IsVideo { get; set; }
 
-        public Lesson(string title, string textContent, uint number)
+        public Lesson(string title, string filename, uint number, bool isVideo=false)
         {
             Title = title;
-            TextContent = textContent;
+            Filename = filename;
             Number = number;
+            IsVideo = isVideo;
         }
     }
 }
