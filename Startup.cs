@@ -32,6 +32,9 @@ namespace OpenBook
             services.AddDbContext<StudentCoursesContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
+            services.AddDbContext<CourseLessonsContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+
             services.AddControllers();
 
             services.AddCors(options => 
