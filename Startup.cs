@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using OpenBook.Models;
+using OpenBook.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace OpenBook
@@ -36,6 +38,9 @@ namespace OpenBook
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
             services.AddControllers();
+
+            services.AddSingleton(x => new BlobServiceClient(Configuration.GetConnectionString("AzureBlobStorageConnectionString")));
+            services.AddSingleton<IBlobService, BlobService>();
 
             services.AddCors(options => 
             {
