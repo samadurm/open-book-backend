@@ -94,6 +94,22 @@ namespace OpenBook.Controllers
             return Ok(entity);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCourse(long id)
+        {
+            var course = await _context.Courses.FindAsync(id);
+
+            if (course == null)
+            {
+                return NotFound("No Course with this id exists in the database");
+            }
+
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         [HttpGet("{id}/students/")]
         public async Task<ActionResult<IEnumerable<StudentCourses>>> GetCourseStudents(long id)
         {
@@ -108,6 +124,22 @@ namespace OpenBook.Controllers
 
             await _studentCoursesContext.SaveChangesAsync();
             return Ok(newStudentCourses);
+        }
+
+        [HttpDelete("{courseId}/students/{studentId}")]
+        public async Task<IActionResult> DeleteUserFromCourse(long courseId, long studentId)
+        {
+            var studentCourse = _studentCoursesContext.StudentCourses.FirstOrDefault(studentCourse => studentCourse.CourseId == courseId && studentCourse.StudentId == studentId);
+
+            if (studentCourse == null)
+            {
+                return NotFound("Could not find relationship between user and course");
+            }
+
+            _studentCoursesContext.Remove(studentCourse);
+
+            await _studentCoursesContext.SaveChangesAsync();
+            return NoContent();
         }
 
         [HttpPost("{courseId}/lessons/{lessonId}")]
@@ -126,18 +158,18 @@ namespace OpenBook.Controllers
             return await _courseLessonsContext.CourseLessons.Where(l => l.CourseId == id).ToListAsync();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCourse(long id)
+        [HttpDelete("{courseId}/lessons/{lessonId}")]
+        public async Task<IActionResult> DeleteLessonFromCourse(long courseId, long lessonId)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var courseLesson = _courseLessonsContext.CourseLessons.FirstOrDefault(courseLesson => courseLesson.CourseId == courseId && courseLesson.LessonId == lessonId);
 
-            if (course == null)
+            if (courseLesson == null)
             {
-                return NotFound("No Course with this id exists in the database");
+                return NotFound("The relationship between this course and lesson could not be found.");
             }
 
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
+            _courseLessonsContext.Remove(courseLesson);
+            await _courseLessonsContext.SaveChangesAsync();
 
             return NoContent();
         }
