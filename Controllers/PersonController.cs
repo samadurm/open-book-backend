@@ -40,10 +40,18 @@ namespace OpenBook.Controllers
         [HttpPost]
         public async Task<ActionResult<Person>> PostPerson([FromBody] Person newPerson)
         {
-            _context.People.Add(newPerson);
+            var person = _context.People.FirstOrDefault(p => p.FirstName == newPerson.FirstName && p.LastName == newPerson.LastName && p.Email == newPerson.Email);
+            
+            if (person == null)
+            {
+                _context.People.Add(newPerson);
 
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetPerson), new { id = newPerson.Id }, newPerson);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction(nameof(GetPerson), new { id = newPerson.Id }, newPerson);
+            } 
+            else {
+                return NoContent();
+            }
         }
 
         [HttpPut("{id}")]
