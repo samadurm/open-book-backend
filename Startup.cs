@@ -22,8 +22,9 @@ namespace OpenBook
         {
             services.AddDbContext<PersonContext>(opt => opt.UseInMemoryDatabase("Person"));
             services.AddDbContext<CourseContext>(opt => opt.UseInMemoryDatabase("Course"));
+            services.AddDbContext<StudentCoursesContext>(opt => opt.UseInMemoryDatabase("StudentCourses"));
             
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             services.AddCors(options => 
             {
