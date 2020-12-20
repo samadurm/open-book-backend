@@ -39,7 +39,7 @@ namespace OpenBook.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Person>> PostCourse(Course newCourse)
+        public async Task<ActionResult<Course>> PostCourse(Course newCourse)
         {
             newCourse.TeacherId = 3; // SET THIS TO THE COURSE CREATOR'S ID SOMEHOW
 

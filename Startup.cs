@@ -26,6 +26,10 @@ namespace OpenBook
             services.AddDbContext<CourseContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("CourseConnection")));
 
+            // services.AddDbContext<LessonContext>(opt => opt.UseInMemoryDatabase("Lesson"));
+
+            services.AddDbContext<LessonContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("LessonConnection")));
 
             services.AddControllers();
 
