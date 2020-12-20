@@ -41,7 +41,7 @@ namespace OpenBook.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Person>> PostCourse([FromBody] Course newCourse)
+        public async Task<ActionResult<Course>> PostCourse([FromBody] Course newCourse)
         {
             if (!Course.categories.Contains(newCourse.Category))
             {
