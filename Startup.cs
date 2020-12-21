@@ -47,7 +47,7 @@ namespace OpenBook
                 options.AddDefaultPolicy(
                     builder => 
                     {
-                        builder.WithOrigins("http://localhost:3000");
+                        builder.WithOrigins("https://web.engr.oregonstate.edu/~mayma/openbook/");
                     }
                 );
             });
